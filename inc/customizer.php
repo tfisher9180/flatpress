@@ -1,0 +1,135 @@
+<?php
+/**
+ * FlatPress Theme Customizer
+ *
+ * @package FlatPress
+ */
+
+/**
+ * Add postMessage support for site title and description for the Theme Customizer.
+ *
+ * @param WP_Customize_Manager $wp_customize Theme Customizer object.
+ */
+function flatpress_customize_register( $wp_customize ) {
+	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
+	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
+	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
+
+	$wp_customize->remove_control( 'custom_logo' );
+	$wp_customize->remove_control( 'display_header_text' );
+
+	$wp_customize->add_panel( 'theme_options', array(
+		'priority'				=> 10,
+		'capability'			=> 'edit_theme_options',
+		'title'						=> __( 'Theme Options', 'flatpress' ),
+		'description'			=> __( 'Custom options for the theme.', 'flatpress' ),
+	));
+
+	$wp_customize->add_section( 'theme_options_logo', array(
+		'capability'			=> 'edit_theme_options',
+		'title'						=> __( 'Logo', 'flatpress' ),
+		'description'			=> __( 'Logo for the flatpress theme.', 'flatpress' ),
+		'panel'						=> 'theme_options',
+	));
+
+	$wp_customize->add_setting( 'logo_img' );
+
+	$wp_customize->add_control( new WP_Customize_Image_Control(
+		$wp_customize, 'logo_img', array(
+			'priority'			=> 20,
+			'label'					=> __( 'Logo', 'flatpress' ),
+			'description'		=> __( 'Recommended logo dimensions: 245x100', 'flatpress' ),
+			'section'				=> 'theme_options_logo',
+			'settings'			=> 'logo_img',
+	) ) );
+
+	$wp_customize->add_setting( 'text_logo_one', array(
+		'type'					=> 'theme_mod',
+		'capability'			=> 'edit_theme_options',
+		'sanitize_callback'		=> 'sanitize_text_field',
+	) );
+
+	$wp_customize->add_control( 'text_logo_one', array(
+		'priority'				=> 20,
+		'type'					=> 'text',
+		'label'					=> __( 'Text Logo Part 1', 'flatpress' ),
+		'section'				=> 'theme_options_logo',
+	) );
+
+	$wp_customize->add_setting( 'text_logo_two', array(
+		'type'					=> 'theme_mod',
+		'capability'			=> 'edit_theme_options',
+		'sanitize_callback'		=> 'sanitize_text_field',
+	) );
+
+	$wp_customize->add_control( 'text_logo_two', array(
+		'priority'				=> 30,
+		'type'					=> 'text',
+		'label'					=> __( 'Text Logo Part 2', 'flatpress' ),
+		'section'				=> 'theme_options_logo',
+	) );
+
+	$wp_customize->add_setting( 'use_text_logo', array(
+		'type'					=> 'theme_mod',
+		'capability'			=> 'edit_theme_options',
+		'sanitize_callback'		=> 'flatpress_sanitize_checkbox',
+	) );
+
+	$wp_customize->add_control( 'use_text_logo', array(
+		'priority'				=> 10,
+		'type'					=> 'checkbox',
+		'label'					=> __( 'Use Text Logo', 'flatpress' ),
+		'section'				=> 'theme_options_logo',
+	) );
+
+	if ( isset( $wp_customize->selective_refresh ) ) {
+		$wp_customize->selective_refresh->add_partial( 'blogname', array(
+			'selector'        => '.site-title a',
+			'render_callback' => 'flatpress_customize_partial_blogname',
+		) );
+		$wp_customize->selective_refresh->add_partial( 'blogdescription', array(
+			'selector'        => '.site-description',
+			'render_callback' => 'flatpress_customize_partial_blogdescription',
+		) );
+	}
+
+	function flatpress_sanitize_checkbox( $checked ) {
+		// Boolean check.
+		return ( ( isset( $checked ) && true == $checked ) ? true : false );
+	}
+}
+add_action( 'customize_register', 'flatpress_customize_register' );
+
+/**
+ * Render the site title for the selective refresh partial.
+ *
+ * @return void
+ */
+function flatpress_customize_partial_blogname() {
+	bloginfo( 'name' );
+}
+
+/**
+ * Render the site tagline for the selective refresh partial.
+ *
+ * @return void
+ */
+function flatpress_customize_partial_blogdescription() {
+	bloginfo( 'description' );
+}
+
+/**
+ * Enqueue the script that controls our customizer controls.
+ */
+function flatpress_customizer_controls() {
+	wp_enqueue_script( 'flatpress_customizer_controls', get_template_directory_uri() . '/js/customizer-controls.js', array( 'jquery' ), null, true );
+}
+add_action( 'customize_controls_enqueue_scripts', 'flatpress_customizer_controls' );
+
+/**
+ * Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
+ */
+function flatpress_customize_preview_js() {
+	wp_enqueue_script( 'flatpress-customizer', get_template_directory_uri() . '/js/customizer.js', array( 'customize-preview' ), '20151215', true );
+}
+add_action( 'customize_preview_init', 'flatpress_customize_preview_js' );

@@ -1,0 +1,21 @@
+html {
+	font-size: ($font-base / 16) * 100%; // 1rem = 10px
+	-webkit-font-smoothing: antialiased;
+}
+
+body,
+button,
+input,
+select,
+optgroup,
+textarea {
+	color: $color-text-dark;
+	font-family: $font__main;
+	font-weight: $font-weight-normal;
+	@include font-size($font-size-pt);
+	line-height: $font__line-height-body;
+}
+
+@import "headings";
+
+@import "copy";

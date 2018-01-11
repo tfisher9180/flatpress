@@ -1,0 +1,24 @@
+.container {
+	position: relative;
+	max-width: $site-max-width;
+	padding: 0 $site-padding;
+	margin: 0 auto;
+}
+
+.row {
+	display: flex;
+	flex-wrap: wrap;
+	margin-left: -$site-padding;
+	margin-right: -$site-padding;
+}
+
+.no-gutters {
+	margin-left: 0;
+	margin-right: 0;
+
+	> .col,
+	> [class*="col-"] {
+		padding-left: 0;
+		padding-right: 0;
+	}
+}

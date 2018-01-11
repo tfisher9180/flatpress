@@ -1,0 +1,33 @@
+#navbar {
+	background-color: $color-flat-dark;
+
+	.row {
+		height: $navbar-height;
+	}
+
+	.btn-site-menu-toggle {
+		padding: calc( (#{$navbar-height} - (#{$font__line-height-buttons} * 1em)) / 2 ) 25px;
+		background-color: transparent;
+		color: $color-white;
+		font-size: 0.63em;
+		letter-spacing: $font-letter-spacing-base;
+
+		&:hover,
+		&:focus {
+			background-color: $color-flat-dark-darken;
+		}
+	}
+}
+
+.site-title {
+	text-transform: lowercase;
+	font-size: 1.3em;
+
+	.part-one {
+		color: $color-flat-light;
+	}
+
+	.part-two {
+		color: $color-white;
+	}
+}

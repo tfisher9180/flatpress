@@ -1,0 +1,14 @@
+a {
+	color: $color-flat-light;
+	text-decoration: none;
+
+	&:visited {
+		color: $color-flat-light;
+	}
+	&:hover,
+	&:focus,
+	&:active {
+		color: $color-text-dark;
+		outline: 0;
+	}
+}

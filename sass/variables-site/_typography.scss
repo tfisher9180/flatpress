@@ -1,0 +1,16 @@
+$font-base: 10; // 10px
+$font-size: 19; // 19px
+$font-size-pt: $font-size * 0.1; // 1.9
+
+$font-weight-normal: 400;
+$font-weight-bold: 600;
+
+$font-letter-spacing-base: 0.5px;
+
+$font__main: 'Poppins', "Helvetica Neue", Helvetica, Arial, sans-serif;
+$font__code: Monaco, Consolas, "Andale Mono", "DejaVu Sans Mono", monospace;
+$font__pre: "Courier 10 Pitch", Courier, monospace;
+$font__line-height-body: 1.7;
+$font__line-height-headings: 1.2;
+$font__line-height-buttons: 1.5;
+$font__line-height-pre: 1.6;

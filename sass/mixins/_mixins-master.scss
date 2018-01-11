@@ -1,0 +1,59 @@
+@mixin respond-to($name, $breakpoints: $breakpoints) {
+	$min: breakpoint-min($name, $breakpoints);
+	@if $min {
+		@media (min-width: $min) {
+			@content;
+		}
+	} @else {
+		@content;
+	}
+}
+
+@mixin media-query($type, $size) {
+	@media (#{$type}: $size) {
+		@content;
+	}
+}
+
+@function breakpoint-min($name, $breakpoints: $breakpoints) {
+	$min: map-get($breakpoints, $name);
+	@return if($min != 0, $min, null);
+}
+
+@function breakpoint-infix($name, $breakpoints: $breakpoints) {
+	@return if(breakpoint-min($name, $breakpoints) == null, "", "-#{$name}");
+}
+
+@function px-to-em($px) {
+	@return ($px / $font-size) * 1em;
+}
+
+// Rem output with px fallback
+@mixin font-size($sizeValue: 1) {
+	font-size: ($sizeValue * $font-base) * 1px;
+	font-size: $sizeValue * 1rem;
+}
+
+// Center block
+@mixin center-block {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+// Clearfix
+@mixin clearfix() {
+	content: "";
+	display: table;
+	table-layout: fixed;
+}
+
+// Clear after (not all clearfix need this also)
+@mixin clearfix-after() {
+	clear: both;
+}
+
+// Column width with margin
+@mixin column-width($numberColumns: 3) {
+	width: map-get( $columns, $numberColumns ) - ( ( $columns__margin * ( $numberColumns - 1 ) ) / $numberColumns );
+}
