@@ -15,6 +15,18 @@
 	}
 }
 
+@mixin admin-bar-fix($property, $height-to-add) {
+	#{$property}: $height-to-add;
+
+	.admin-bar & {
+		#{$property}: $height-to-add + 46px;
+
+		@include media-query(min-width, 782px) {
+			#{$property}: $height-to-add + 32px;
+		} 
+	}
+}
+
 @function breakpoint-min($name, $breakpoints: $breakpoints) {
 	$min: map-get($breakpoints, $name);
 	@return if($min != 0, $min, null);

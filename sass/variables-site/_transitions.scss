@@ -1,0 +1,4 @@
+$mobile-menu-transition-timing: 0.15s;
+$mobile-menu-transition-easing: ease-in-out;
+$mobile-menu-transition-property: transform;
+$mobile-menu-transition: $mobile-menu-transition-property $mobile-menu-transition-timing $mobile-menu-transition-easing; 

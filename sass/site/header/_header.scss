@@ -1,8 +1,18 @@
 #navbar {
+	position: relative;
 	background-color: $color-flat-dark;
+	z-index: 10;
+
+	.mm-open & {
+		box-shadow: 0 0.125rem 0.25rem 0 rgba($color-flat-dark-darkest, 0.1);
+	}
 
 	.row {
-		height: $navbar-height;
+		min-height: $navbar-height;
+	}
+
+	.site-menu label {
+		display: block;
 	}
 
 	.btn-site-menu-toggle {
@@ -13,15 +23,21 @@
 		letter-spacing: $font-letter-spacing-base;
 
 		&:hover,
-		&:focus {
+		&:active,
+		.mm-open & {
 			background-color: $color-flat-dark-darken;
 		}
 	}
 }
 
 .site-title {
+	margin: 0;
 	text-transform: lowercase;
 	font-size: 1.3em;
+
+	a {
+		color: $color-white;
+	}
 
 	.part-one {
 		color: $color-flat-light;

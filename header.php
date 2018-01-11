@@ -26,6 +26,20 @@
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'flatpress' ); ?></a>
 
+	<nav id="main-navigation-mobile" class="site-navigation<?php esc_attr_e( ' ' . get_theme_mod( 'menu_type', 'off_canvas' ) ); ?>" aria-label="Main Navigation">
+		<label id="mobile-menu-label" for="mobile-menu-open" class="screen-reader-text">Toggle the main site navigation</label>
+		<input id="mobile-menu-open" type="checkbox" arialabelledby="mobile-menu-label" />
+		<div class="mobile-menu">
+			<?php wp_nav_menu( array(
+				'theme_location' => 'main-navigation',
+				'container'		 => 'false',
+				'menu_id'        => 'main-navigation-mobile-menu',
+				'menu_class'	 => 'nav-menu'
+			) );
+			?>
+		</div><!-- .mobile-menu -->
+	</nav><!-- #main-navigation-mobile -->
+
 	<section id="navbar">
 		<div class="container">
 			<div class="row no-gutters align-items-center justify-content-between">
@@ -36,26 +50,21 @@
 						</a>
 					<?php else : ?>
 						<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" tabindex="1">
-							<span class="part-one"><?php esc_html_e( get_theme_mod( 'text_logo_one' ) ); ?></span><span class="part-two"><?php esc_html_e( get_theme_mod( 'text_logo_two' ) ); ?></span>
+							<?php if ( get_theme_mod( 'use_text_logo' ) ) : ?> 
+								<span class="part-one"><?php esc_html_e( get_theme_mod( 'text_logo_one' ) ); ?></span><span class="part-two"><?php esc_html_e( get_theme_mod( 'text_logo_two' ) ); ?></span>
+							<?php else : ?>
+								<?php esc_html_e( bloginfo( 'name' ) ); ?>
+							<?php endif; ?>
 						</a></h1>
 					<?php endif; ?>
 				</header><!-- .site-branding -->
 				<div class="site-menu">
-					<nav id="main-navigation" class="site-navigation">
-						<button type="button" class="btn btn-site-menu-toggle" aria-controls="main-navigation-menu" aria-expanded="false" tabindex="2">
+					<label for="mobile-menu-open">
+						<button type="button" class="btn btn-site-menu-toggle" aria-controls="main-navigation-mobile-menu" aria-expanded="false" tabindex="2">
 							<span class="icon icon-menu"></span>
 							<span><?php esc_html_e( 'Menu', 'flatpress' ); ?></span>
 						</button>
-						<div class="mobile-menu">
-							<?php wp_nav_menu( array(
-								'theme_location' => 'site-navigation',
-								'container'		 => 'false',
-								'menu_id'        => 'main-navigation-menu',
-								'menu_class'	 => 'nav-menu'
-							) );
-							?>
-						</div><!-- .mobile-menu -->
-					</nav><!-- #site-navigation -->
+					</label>
 				</div><!-- .site-menu -->
 			</div><!-- .row -->
 		</div><!-- .container -->

@@ -164,6 +164,12 @@ function flatpress_scripts() {
 
 	wp_enqueue_style( 'flatpress-style', get_stylesheet_uri() );
 
+	wp_enqueue_script( 'flatpress-navigation', get_template_directory_uri() . '/js/navigation.js', array( 'jquery' ), '1.0', true );
+
+	wp_localize_script( 'flatpress-navigation', 'flatpressNav', array(
+		'menuType'		=> get_theme_mod( 'menu_type', 'off_canvas' ),
+	) );
+
 	wp_enqueue_script( 'flatpress-scripts', get_template_directory_uri() . '/js/theme.js', array( 'jquery' ), '1.0', true );
 
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
