@@ -93,7 +93,7 @@ function flatpress_customize_register( $wp_customize ) {
 		'default'				=> 'off_canvas',
 		'type'					=> 'theme_mod',
 		'capability'			=> 'edit_theme_options',
-		'sanitize_callback'		=> 'flatpress_sanitize_select',
+		'sanitize_callback'		=> 'flatpress_sanitize_choice',
 	) );
 
 	$wp_customize->add_control( 'menu_type', array(
@@ -104,6 +104,24 @@ function flatpress_customize_register( $wp_customize ) {
 		'choices'				=> array(
 			'off_canvas'	=> 'Off Canvas',
 			'dropdown'		=> 'Dropdown'
+		),
+	) );
+
+	$wp_customize->add_setting( 'sub_menu_header_type', array(
+		'default'				=> 'in_menu',
+		'type'					=> 'theme_mod',
+		'capability'			=> 'edit_theme_options',
+		'sanitize_callback'		=> 'flatpress_sanitize_choice',
+	) );
+
+	$wp_customize->add_control( 'sub_menu_header_type', array(
+		'priority'				=> 20,
+		'type'					=> 'radio',
+		'label'					=> __( 'Sub-menu Header Type', 'flatpress' ),
+		'section'				=> 'theme_options_menu',
+		'choices'				=> array(
+			'in_menu'		=> 'In-menu',
+			'global'		=> 'Global'
 		),
 	) );
 
@@ -123,7 +141,7 @@ function flatpress_customize_register( $wp_customize ) {
 		return ( ( isset( $checked ) && true == $checked ) ? true : false );
 	}
 
-	function flatpress_sanitize_select( $input, $setting ) {
+	function flatpress_sanitize_choice( $input, $setting ) {
 		// Ensure input is a slug (escaping illegal characters).
 		$input = sanitize_key( $input );
 

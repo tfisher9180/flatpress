@@ -167,9 +167,11 @@ function flatpress_scripts() {
 	wp_enqueue_script( 'flatpress-navigation', get_template_directory_uri() . '/js/navigation.js', array( 'jquery' ), '1.0', true );
 
 	wp_localize_script( 'flatpress-navigation', 'flatpressNav', array(
-		'menuType'		=> get_theme_mod( 'menu_type', 'off_canvas' ),
-		'expand'		=> __( 'Expand child menu', 'flatpress' ),
-		'collapse'		=> __( 'Collapse child menu', 'flatpress' ),
+		'menuType'				=> get_theme_mod( 'menu_type', 'off_canvas' ),
+		'subMenuHeaderType'		=> get_theme_mod( 'sub_menu_header_type', 'in_menu' ),
+		'backBtn'				=> __( 'Menu', 'flatpress' ),
+		'expand'				=> __( 'Expand child menu', 'flatpress' ),
+		'collapse'				=> __( 'Collapse child menu', 'flatpress' ),
 	) );
 
 	wp_enqueue_script( 'flatpress-scripts', get_template_directory_uri() . '/js/theme.js', array( 'jquery' ), '1.0', true );
