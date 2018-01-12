@@ -11,6 +11,10 @@ html {
 
 body {
 	background: $color-off-white; /* Fallback for when there is no custom background color defined. */
+
+	&.mm-open {
+		overflow: hidden;
+	}
 }
 
 hr {

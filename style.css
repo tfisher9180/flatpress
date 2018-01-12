@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'fontello';
-  src: url('fonts/fontello.eot?49197660');
-  src: url('fonts/fontello.eot?49197660#iefix') format('embedded-opentype'),
-       url('fonts/fontello.woff2?49197660') format('woff2'),
-       url('fonts/fontello.woff?49197660') format('woff'),
-       url('fonts/fontello.ttf?49197660') format('truetype'),
-       url('fonts/fontello.svg?49197660#fontello') format('svg');
+  src: url('fonts/fontello.eot?90396897');
+  src: url('fonts/fontello.eot?90396897#iefix') format('embedded-opentype'),
+       url('fonts/fontello.woff2?90396897') format('woff2'),
+       url('fonts/fontello.woff?90396897') format('woff'),
+       url('fonts/fontello.ttf?90396897') format('truetype'),
+       url('fonts/fontello.svg?90396897#fontello') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'fontello';
-    src: url('fonts/fontello.svg?49197660#fontello') format('svg');
+    src: url('fonts/fontello.svg?90396897#fontello') format('svg');
   }
 }
 */
@@ -847,6 +847,10 @@ body {
 	/* Fallback for when there is no custom background color defined. */
 }
 
+body.mm-open {
+	overflow: hidden;
+}
+
 hr {
 	background-color: #cccccc;
 	border: 0;
@@ -1023,12 +1027,12 @@ a:hover, a:focus, a:active {
 	list-style: none;
 }
 
-.site-navigation > ul,
-.site-navigation div > ul {
+.site-navigation ul ul {
 	display: none;
 }
 
 .site-navigation a {
+	display: block;
 	color: #fff;
 }
 
@@ -1047,6 +1051,33 @@ a:hover, a:focus, a:active {
 	transition: transform 0.15s ease-in-out;
 	transition: transform 0.15s ease-in-out, -webkit-transform 0.15s ease-in-out;
 	width: 100vw;
+	font-size: 0.74em;
+}
+
+#main-navigation-mobile .mobile-menu > ul > li {
+	border-bottom: 1px solid rgba(248, 248, 248, 0.1);
+	line-height: 5.6rem;
+}
+
+#main-navigation-mobile .mobile-menu > ul > li > a {
+	padding: 0 5%;
+}
+
+#main-navigation-mobile .mobile-menu > ul .menu-item-has-children > a,
+#main-navigation-mobile .mobile-menu > ul .page_item_has_children > a {
+	display: inline-block;
+	padding-right: 0;
+	width: calc( 100% - 60px);
+}
+
+#main-navigation-mobile .mobile-menu > ul .menu-item-has-children .submenu-toggle,
+#main-navigation-mobile .mobile-menu > ul .page_item_has_children .submenu-toggle {
+	width: 60px;
+	line-height: 5.6rem;
+	padding: 0;
+	background-color: transparent;
+	border-left: 1px solid rgba(248, 248, 248, 0.1);
+	color: whitesmoke;
 }
 
 #main-navigation-mobile.off_canvas .mobile-menu {
@@ -1068,24 +1099,14 @@ a:hover, a:focus, a:active {
 }
 
 #main-navigation-mobile.dropdown {
-	position: absolute;
-	left: 0;
-	padding: 0;
-	top: 66px;
-}
-
-.admin-bar #main-navigation-mobile.dropdown {
-	top: 112px;
-}
-
-@media (min-width: 782px) {
-	.admin-bar #main-navigation-mobile.dropdown {
-		top: 98px;
-	}
+	position: relative;
 }
 
 #main-navigation-mobile.dropdown .mobile-menu {
+	position: absolute;
 	display: none;
+	top: 66px;
+	width: 100vw;
 }
 
 #mobile-menu-open {

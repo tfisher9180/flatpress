@@ -168,6 +168,8 @@ function flatpress_scripts() {
 
 	wp_localize_script( 'flatpress-navigation', 'flatpressNav', array(
 		'menuType'		=> get_theme_mod( 'menu_type', 'off_canvas' ),
+		'expand'		=> __( 'Expand child menu', 'flatpress' ),
+		'collapse'		=> __( 'Collapse child menu', 'flatpress' ),
 	) );
 
 	wp_enqueue_script( 'flatpress-scripts', get_template_directory_uri() . '/js/theme.js', array( 'jquery' ), '1.0', true );
