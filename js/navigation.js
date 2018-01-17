@@ -1,106 +1,79 @@
-/**
- * File navigation.js.
- *
- * Handles toggling the navigation menu for small screens and enables TAB key
- * navigation support for dropdown menus.
- */
-( function() {
-	var container, button, menu, links, i, len;
+( function( $ ) {
 
-	container = document.getElementById( 'site-navigation' );
-	if ( ! container ) {
-		return;
-	}
+	var navigation = $( '#main-navigation-mobile-menu' );
 
-	button = container.getElementsByTagName( 'button' )[0];
-	if ( 'undefined' === typeof button ) {
-		return;
-	}
+	( function() {
 
-	menu = container.getElementsByTagName( 'ul' )[0];
+		var hasChildren = navigation.find( '.menu-item-has-children, .page_item_has_children' );
 
-	// Hide menu toggle button if menu is empty and return early.
-	if ( 'undefined' === typeof menu ) {
-		button.style.display = 'none';
-		return;
-	}
-
-	menu.setAttribute( 'aria-expanded', 'false' );
-	if ( -1 === menu.className.indexOf( 'nav-menu' ) ) {
-		menu.className += ' nav-menu';
-	}
-
-	button.onclick = function() {
-		if ( -1 !== container.className.indexOf( 'toggled' ) ) {
-			container.className = container.className.replace( ' toggled', '' );
-			button.setAttribute( 'aria-expanded', 'false' );
-			menu.setAttribute( 'aria-expanded', 'false' );
-		} else {
-			container.className += ' toggled';
-			button.setAttribute( 'aria-expanded', 'true' );
-			menu.setAttribute( 'aria-expanded', 'true' );
+		if ( ! navigation.length || ! hasChildren.length ) {
+			return;
 		}
-	};
 
-	// Get all the link elements within the menu.
-	links    = menu.getElementsByTagName( 'a' );
+		var subMenus = hasChildren.find( '> .sub-menu' );
+		var submenuToggle = $( '<button />', { 'class': 'btn submenu-toggle', 'aria-expanded': false } )
+			.append( $( '<span />', { 'class': 'screen-reader-text', text: flatpressNav.expand } ) )
+			.append( $( '<span />', { 'class': 'icon icon-angle-right' } ) );
+		var toggleSubmenu = function( e ) {
+			if ( $( this ).is( 'a' ) ) {
+				e.preventDefault();
+			}
+			var _this = $( this );
+			var activeLi = _this.closest( 'li:not(.go-back)' );
+			var activeUl = activeLi.closest( 'ul' );
+			var subMenu = activeLi.find( '> .sub-menu' );
+			var submenuToggle = activeLi.find( '> .submenu-toggle' );
 
-	// Each time a menu link is focused or blurred, toggle focus.
-	for ( i = 0, len = links.length; i < len; i++ ) {
-		links[i].addEventListener( 'focus', toggleFocus, true );
-		links[i].addEventListener( 'blur', toggleFocus, true );
-	}
+			activeLi.toggleClass( 'sub-menu-active' );
 
-	/**
-	 * Sets or removes .focus class on an element.
-	 */
-	function toggleFocus() {
-		var self = this;
-
-		// Move up through the ancestors of the current link until we hit .nav-menu.
-		while ( -1 === self.className.indexOf( 'nav-menu' ) ) {
-
-			// On li elements toggle the class .focus.
-			if ( 'li' === self.tagName.toLowerCase() ) {
-				if ( -1 !== self.className.indexOf( 'focus' ) ) {
-					self.className = self.className.replace( ' focus', '' );
-				} else {
-					self.className += ' focus';
-				}
+			if ( flatpressNav.subMenuTransition == 'submenu_slide' ) {
+				activeUl.toggleClass( 'move-out' );
+			} else if ( flatpressNav.subMenuTransition == 'submenu_dropdown' ) {
+				subMenu.slideToggle( 300 );
 			}
 
-			self = self.parentElement;
+			subMenu.add( submenuToggle ).attr( 'aria-expanded', activeLi.hasClass( 'sub-menu-active' ) );
+		};
+
+		navigation.add( subMenus ).attr( 'aria-expanded', false );
+
+		if ( flatpressNav.subMenuHeaderType == 'in_menu' && flatpressNav.subMenuTransition == 'submenu_slide' ) {
+			var goBack = $( '<li />', { 'class': 'go-back menu-item', 'aria-hidden': true } )
+				.append( $( '<a />', { 'href': '#' } )
+					.append( $( '<span />', { text: flatpressNav.backBtn } ) ) );
+			subMenus.prepend( goBack );
+			subMenus.find( '.go-back > a' ).on( 'click', toggleSubmenu );
 		}
-	}
 
-	/**
-	 * Toggles `focus` class to allow submenu access on tablets.
-	 */
-	( function( container ) {
-		var touchStartFn, i,
-			parentLink = container.querySelectorAll( '.menu-item-has-children > a, .page_item_has_children > a' );
+		hasChildren.find( '> a' ).after( submenuToggle );
+		var toggles = navigation.find( '.submenu-toggle' );
 
-		if ( 'ontouchstart' in window ) {
-			touchStartFn = function( e ) {
-				var menuItem = this.parentNode, i;
+		if ( ! toggles.length ) {
+			return;
+		}
 
-				if ( ! menuItem.classList.contains( 'focus' ) ) {
-					e.preventDefault();
-					for ( i = 0; i < menuItem.parentNode.children.length; ++i ) {
-						if ( menuItem === menuItem.parentNode.children[i] ) {
-							continue;
-						}
-						menuItem.parentNode.children[i].classList.remove( 'focus' );
-					}
-					menuItem.classList.add( 'focus' );
-				} else {
-					menuItem.classList.remove( 'focus' );
-				}
-			};
+		toggles.on( 'click', toggleSubmenu );
 
-			for ( i = 0; i < parentLink.length; ++i ) {
-				parentLink[i].addEventListener( 'touchstart', touchStartFn, false );
+	} ) ();
+
+	( function() {
+
+		var checkbox = $( '#mobile-menu-open' );
+		var mobileMenu = checkbox.find( '~ .mobile-menu' );
+		var menuToggle = $( '#navbar .btn-site-menu-toggle' );
+
+		var toggleCheck = function() {
+			checkbox.prop( 'checked', ! checkbox.prop( 'checked' ) );
+			$( 'body' ).toggleClass( 'mm-open' );
+			menuToggle.add( navigation ).attr( 'aria-expanded', $( 'body' ).hasClass( 'mm-open' ) );
+
+			if ( flatpressNav.menuType == 'dropdown' ) {
+				mobileMenu.slideToggle( 150 );
 			}
 		}
-	}( container ) );
-} )();
+
+		menuToggle.on( 'click', toggleCheck );
+
+	} ) ();
+
+} ) ( jQuery );

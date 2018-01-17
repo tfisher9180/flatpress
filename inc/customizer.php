@@ -28,7 +28,14 @@ function flatpress_customize_register( $wp_customize ) {
 	$wp_customize->add_section( 'theme_options_logo', array(
 		'capability'			=> 'edit_theme_options',
 		'title'						=> __( 'Logo', 'flatpress' ),
-		'description'			=> __( 'Logo for the flatpress theme.', 'flatpress' ),
+		'description'			=> __( 'Logo for the FlatPress theme.', 'flatpress' ),
+		'panel'						=> 'theme_options',
+	));
+
+	$wp_customize->add_section( 'theme_options_menu', array(
+		'capability'			=> 'edit_theme_options',
+		'title'						=> __( 'Menu', 'flatpress' ),
+		'description'			=> __( 'Menu options for the FlatPress theme.', 'flatpress' ),
 		'panel'						=> 'theme_options',
 	));
 
@@ -82,6 +89,60 @@ function flatpress_customize_register( $wp_customize ) {
 		'section'				=> 'theme_options_logo',
 	) );
 
+	$wp_customize->add_setting( 'menu_type', array(
+		'default'				=> 'off_canvas',
+		'type'					=> 'theme_mod',
+		'capability'			=> 'edit_theme_options',
+		'sanitize_callback'		=> 'flatpress_sanitize_choice',
+	) );
+
+	$wp_customize->add_control( 'menu_type', array(
+		'priority'				=> 10,
+		'type'					=> 'select',
+		'label'					=> __( 'Menu Type', 'flatpress' ),
+		'section'				=> 'theme_options_menu',
+		'choices'				=> array(
+			'off_canvas'	=> 'Off Canvas',
+			'dropdown'		=> 'Dropdown'
+		),
+	) );
+
+	$wp_customize->add_setting( 'sub_menu_transition', array(
+		'default'				=> 'submenu_slide',
+		'type'					=> 'theme_mod',
+		'capability'			=> 'edit_theme_options',
+		'sanitize_callback'		=> 'flatpress_sanitize_choice',
+	) );
+
+	$wp_customize->add_control( 'sub_menu_transition', array(
+		'priority'				=> 20,
+		'type'					=> 'radio',
+		'label'					=> __( 'Sub-menu Transition', 'flatpress' ),
+		'section'				=> 'theme_options_menu',
+		'choices'				=> array(
+			'submenu_slide'		=> 'Slide',
+			'submenu_dropdown'		=> 'Dropdown'
+		),
+	) );
+
+	$wp_customize->add_setting( 'sub_menu_header_type', array(
+		'default'				=> 'in_menu',
+		'type'					=> 'theme_mod',
+		'capability'			=> 'edit_theme_options',
+		'sanitize_callback'		=> 'flatpress_sanitize_choice',
+	) );
+
+	$wp_customize->add_control( 'sub_menu_header_type', array(
+		'priority'				=> 30,
+		'type'					=> 'radio',
+		'label'					=> __( 'Sub-menu Header Type', 'flatpress' ),
+		'section'				=> 'theme_options_menu',
+		'choices'				=> array(
+			'in_menu'		=> 'In-menu',
+			'global'		=> 'Global'
+		),
+	) );
+
 	if ( isset( $wp_customize->selective_refresh ) ) {
 		$wp_customize->selective_refresh->add_partial( 'blogname', array(
 			'selector'        => '.site-title a',
@@ -96,6 +157,17 @@ function flatpress_customize_register( $wp_customize ) {
 	function flatpress_sanitize_checkbox( $checked ) {
 		// Boolean check.
 		return ( ( isset( $checked ) && true == $checked ) ? true : false );
+	}
+
+	function flatpress_sanitize_choice( $input, $setting ) {
+		// Ensure input is a slug (escaping illegal characters).
+		$input = sanitize_key( $input );
+
+		// Get list of choices from the control associated with the setting.
+		$choices = $setting->manager->get_control( $setting->id )->choices;
+
+		// If the input is a valid choice, return it; otherwise, return the default.
+		return array_key_exists( $input, $choices ) ? $input : $setting->default;
 	}
 }
 add_action( 'customize_register', 'flatpress_customize_register' );
