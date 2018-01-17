@@ -26,7 +26,7 @@
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'flatpress' ); ?></a>
 
-	<nav id="main-navigation-mobile" class="site-navigation<?php esc_attr_e( ' ' . get_theme_mod( 'menu_type', 'off_canvas' ) ); ?>" aria-label="Main Navigation">
+	<nav id="main-navigation-mobile" class="site-navigation<?php esc_attr_e( ' ' . get_theme_mod( 'menu_type', 'off_canvas' ) ); ?><?php esc_attr_e( ' ' . get_theme_mod( 'sub_menu_transition', 'submenu_slide' ) ); ?>" aria-label="Main Navigation">
 		<label id="mobile-menu-label" for="mobile-menu-open" class="screen-reader-text">Toggle the main site navigation</label>
 		<input id="mobile-menu-open" type="checkbox" arialabelledby="mobile-menu-label" />
 		<div class="mobile-menu">
@@ -34,7 +34,7 @@
 				'theme_location' => 'main-navigation',
 				'container'		 => 'false',
 				'menu_id'        => 'main-navigation-mobile-menu',
-				'menu_class'	 => 'nav-menu'
+				'menu_class'	 => 'nav-menu',
 			) );
 			?>
 		</div><!-- .mobile-menu -->
@@ -50,7 +50,7 @@
 						</a>
 					<?php else : ?>
 						<h1 class="site-title"><a href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home" tabindex="1">
-							<?php if ( get_theme_mod( 'use_text_logo' ) ) : ?> 
+							<?php if ( get_theme_mod( 'use_text_logo' ) ) : ?>
 								<span class="part-one"><?php esc_html_e( get_theme_mod( 'text_logo_one' ) ); ?></span><span class="part-two"><?php esc_html_e( get_theme_mod( 'text_logo_two' ) ); ?></span>
 							<?php else : ?>
 								<?php esc_html_e( bloginfo( 'name' ) ); ?>

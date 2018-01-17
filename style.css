@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'fontello';
-  src: url('fonts/fontello.eot?49348559');
-  src: url('fonts/fontello.eot?49348559#iefix') format('embedded-opentype'),
-       url('fonts/fontello.woff2?49348559') format('woff2'),
-       url('fonts/fontello.woff?49348559') format('woff'),
-       url('fonts/fontello.ttf?49348559') format('truetype'),
-       url('fonts/fontello.svg?49348559#fontello') format('svg');
+  src: url('fonts/fontello.eot?44839251');
+  src: url('fonts/fontello.eot?44839251#iefix') format('embedded-opentype'),
+       url('fonts/fontello.woff2?44839251') format('woff2'),
+       url('fonts/fontello.woff?44839251') format('woff'),
+       url('fonts/fontello.ttf?44839251') format('truetype'),
+       url('fonts/fontello.svg?44839251#fontello') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -15,7 +15,7 @@
 @media screen and (-webkit-min-device-pixel-ratio:0) {
   @font-face {
     font-family: 'fontello';
-    src: url('fonts/fontello.svg?49348559#fontello') format('svg');
+    src: url('fonts/fontello.svg?44839251#fontello') format('svg');
   }
 }
 */
@@ -1044,17 +1044,6 @@ a:hover, a:focus, a:active {
 	transition: transform 0.3s, opacity 0.3s, -webkit-transform 0.3s;
 }
 
-#main-navigation-mobile .sub-menu {
-	position: absolute;
-	top: 0;
-	left: 0;
-	display: block;
-	width: 100%;
-	-webkit-transform: translateX(-100%);
-	        transform: translateX(-100%);
-	opacity: 0;
-}
-
 #main-navigation-mobile:not(.dropdown) #mobile-menu-open:checked ~ .mobile-menu {
 	-webkit-transform: translate3d(100vw, 0, 0);
 	        transform: translate3d(100vw, 0, 0);
@@ -1071,18 +1060,6 @@ a:hover, a:focus, a:active {
 	transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
 	width: 100vw;
 	font-size: 0.74em;
-}
-
-#main-navigation-mobile .mobile-menu .go-back > a {
-	position: relative;
-}
-
-#main-navigation-mobile .mobile-menu .go-back > a:before {
-	content: '\f104';
-	font-family: 'Fontello';
-	display: inline-block;
-	margin-right: 10px;
-	vertical-align: middle;
 }
 
 #main-navigation-mobile .mobile-menu > ul li {
@@ -1121,17 +1098,40 @@ a:hover, a:focus, a:active {
 	color: whitesmoke;
 }
 
-#main-navigation-mobile .mobile-menu ul.move-out > li > a,
-#main-navigation-mobile .mobile-menu ul.move-out > li > .submenu-toggle {
+#main-navigation-mobile.submenu_slide .sub-menu {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: block;
+	width: 100%;
+	-webkit-transform: translateX(-100%);
+	        transform: translateX(-100%);
+	opacity: 0;
+}
+
+#main-navigation-mobile.submenu_slide .mobile-menu ul.move-out > li > a,
+#main-navigation-mobile.submenu_slide .mobile-menu ul.move-out > li > .submenu-toggle {
 	-webkit-transform: translateX(-100vw);
 	        transform: translateX(-100vw);
 	opacity: 0;
 }
 
-#main-navigation-mobile .mobile-menu ul.move-out > li.sub-menu-active > .sub-menu {
+#main-navigation-mobile.submenu_slide .mobile-menu ul.move-out > li.sub-menu-active > .sub-menu {
 	-webkit-transform: translateX(0);
 	        transform: translateX(0);
 	opacity: 1;
+}
+
+#main-navigation-mobile.submenu_slide .mobile-menu .go-back > a {
+	position: relative;
+}
+
+#main-navigation-mobile.submenu_slide .mobile-menu .go-back > a:before {
+	content: '\f104';
+	font-family: 'Fontello';
+	display: inline-block;
+	margin-right: 10px;
+	vertical-align: middle;
 }
 
 #main-navigation-mobile.off_canvas .mobile-menu {

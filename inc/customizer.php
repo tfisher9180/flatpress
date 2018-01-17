@@ -107,6 +107,24 @@ function flatpress_customize_register( $wp_customize ) {
 		),
 	) );
 
+	$wp_customize->add_setting( 'sub_menu_transition', array(
+		'default'				=> 'submenu_slide',
+		'type'					=> 'theme_mod',
+		'capability'			=> 'edit_theme_options',
+		'sanitize_callback'		=> 'flatpress_sanitize_choice',
+	) );
+
+	$wp_customize->add_control( 'sub_menu_transition', array(
+		'priority'				=> 20,
+		'type'					=> 'radio',
+		'label'					=> __( 'Sub-menu Transition', 'flatpress' ),
+		'section'				=> 'theme_options_menu',
+		'choices'				=> array(
+			'submenu_slide'		=> 'Slide',
+			'submenu_dropdown'		=> 'Dropdown'
+		),
+	) );
+
 	$wp_customize->add_setting( 'sub_menu_header_type', array(
 		'default'				=> 'in_menu',
 		'type'					=> 'theme_mod',
@@ -115,7 +133,7 @@ function flatpress_customize_register( $wp_customize ) {
 	) );
 
 	$wp_customize->add_control( 'sub_menu_header_type', array(
-		'priority'				=> 20,
+		'priority'				=> 30,
 		'type'					=> 'radio',
 		'label'					=> __( 'Sub-menu Header Type', 'flatpress' ),
 		'section'				=> 'theme_options_menu',

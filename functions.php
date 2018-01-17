@@ -169,6 +169,7 @@ function flatpress_scripts() {
 	wp_localize_script( 'flatpress-navigation', 'flatpressNav', array(
 		'menuType'				=> get_theme_mod( 'menu_type', 'off_canvas' ),
 		'subMenuHeaderType'		=> get_theme_mod( 'sub_menu_header_type', 'in_menu' ),
+		'subMenuTransition'	=> get_theme_mod( 'sub_menu_transition', 'submenu_slide' ),
 		'backBtn'				=> __( 'Menu', 'flatpress' ),
 		'expand'				=> __( 'Expand child menu', 'flatpress' ),
 		'collapse'				=> __( 'Collapse child menu', 'flatpress' ),

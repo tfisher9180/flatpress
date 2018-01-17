@@ -25,13 +25,19 @@
 			var submenuToggle = activeLi.find( '> .submenu-toggle' );
 
 			activeLi.toggleClass( 'sub-menu-active' );
-			activeUl.toggleClass( 'move-out' );
+
+			if ( flatpressNav.subMenuTransition == 'submenu_slide' ) {
+				activeUl.toggleClass( 'move-out' );
+			} else if ( flatpressNav.subMenuTransition == 'submenu_dropdown' ) {
+				subMenu.slideToggle( 300 );
+			}
+
 			subMenu.add( submenuToggle ).attr( 'aria-expanded', activeLi.hasClass( 'sub-menu-active' ) );
 		};
 
 		navigation.add( subMenus ).attr( 'aria-expanded', false );
 
-		if ( flatpressNav.subMenuHeaderType == 'in_menu' ) {
+		if ( flatpressNav.subMenuHeaderType == 'in_menu' && flatpressNav.subMenuTransition == 'submenu_slide' ) {
 			var goBack = $( '<li />', { 'class': 'go-back menu-item', 'aria-hidden': true } )
 				.append( $( '<a />', { 'href': '#' } )
 					.append( $( '<span />', { text: flatpressNav.backBtn } ) ) );
