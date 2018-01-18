@@ -15,6 +15,10 @@
 		display: block;
 	}
 
+	.custom-logo-link {
+		padding: 1em 1em 1em 0;
+	}
+
 	.btn-site-menu-toggle {
 		padding: calc( (#{$navbar-height} - (#{$font__line-height-buttons} * 1em)) / 2 ) 25px;
 		background-color: transparent;
@@ -32,7 +36,6 @@
 
 .site-title {
 	margin: 0;
-	text-transform: lowercase;
 	font-size: 1.3em;
 
 	a {

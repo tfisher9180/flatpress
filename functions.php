@@ -217,6 +217,11 @@ require get_template_directory() . '/inc/template-tags.php';
 require get_template_directory() . '/inc/template-functions.php';
 
 /**
+ * tfcustomizer
+ */
+require get_template_directory() . '/inc/class-tfcustomizer-control.php';
+
+/**
  * Customizer additions.
  */
 require get_template_directory() . '/inc/customizer.php';

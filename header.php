@@ -45,7 +45,7 @@
 			<div class="row no-gutters align-items-center justify-content-between">
 				<header class="site-branding">
 					<?php if ( flatpress_logo() && ! get_theme_mod( 'use_text_logo' ) ) : ?>
-						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="custom-logo-link" rel="home" tabindex="1">
+						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="custom-logo-link flex align-items-center" rel="home" tabindex="1">
 							<img src="<?php echo esc_url( flatpress_get_logo() ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" />
 						</a>
 					<?php else : ?>

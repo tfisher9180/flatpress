@@ -45,7 +45,7 @@ function flatpress_customize_register( $wp_customize ) {
 		$wp_customize, 'logo_img', array(
 			'priority'			=> 20,
 			'label'					=> __( 'Logo', 'flatpress' ),
-			'description'		=> __( 'Recommended logo dimensions: 245x100', 'flatpress' ),
+			'description'		=> __( 'Recommended logo dimensions: 150x35', 'flatpress' ),
 			'section'				=> 'theme_options_logo',
 			'settings'			=> 'logo_img',
 	) ) );
@@ -143,6 +143,100 @@ function flatpress_customize_register( $wp_customize ) {
 		),
 	) );
 
+	$wp_customize->add_setting( 'test', array(
+		'default'				=> 'one',
+		'type'					=> 'theme_mod',
+		'capability'			=> 'edit_theme_options',
+		'sanitize_callback'		=> 'flatpress_sanitize_choice',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_tfcustomizer_Control( $wp_customize, 'test', array(
+		'priority'				=> 40,
+		'type'					=> 'radio',
+		'label'					=> __( 'This is a test', 'flatpress' ),
+		'section'				=> 'theme_options_menu',
+		'choices'				=> array(
+			'one'		=> 'One',
+			'two'		=> 'Two'
+		),
+	) ) );
+
+	$wp_customize->add_setting( 'test_one', array(
+		'default'				=> '',
+		'type'					=> 'theme_mod',
+		'capability'			=> 'edit_theme_options',
+		'sanitize_callback'		=> 'sanitize_text_field',
+	) );
+
+	$wp_customize->add_control( 'test_one', array(
+		'priority'				=> 50,
+		'type'					=> 'text',
+		'label'					=> __( 'Test One', 'flatpress' ),
+		'section'				=> 'theme_options_menu',
+	) );
+
+	$wp_customize->add_setting( 'test_two', array(
+		'default'				=> '',
+		'type'					=> 'theme_mod',
+		'capability'			=> 'edit_theme_options',
+		'sanitize_callback'		=> 'sanitize_text_field',
+	) );
+
+	$wp_customize->add_control( 'test_two', array(
+		'priority'				=> 50,
+		'type'					=> 'text',
+		'label'					=> __( 'Test Two', 'flatpress' ),
+		'section'				=> 'theme_options_menu',
+	) );
+
+	$wp_customize->add_setting( 'test_again', array(
+		'default'				=> 'three',
+		'type'					=> 'theme_mod',
+		'capability'			=> 'edit_theme_options',
+		'sanitize_callback'		=> 'flatpress_sanitize_choice',
+	) );
+
+	$wp_customize->add_control( new WP_Customize_tfcustomizer_Control( $wp_customize, 'test_again', array(
+		'priority'				=> 40,
+		'type'					=> 'radio',
+		'label'					=> __( 'This is a test', 'flatpress' ),
+		'section'				=> 'theme_options_menu',
+		'choices'				=> array(
+			'three'		=> 'Three',
+			'four'		=> 'Four'
+		),
+	) ) );
+
+	$wp_customize->add_setting( 'test_three', array(
+		'default'				=> '',
+		'type'					=> 'theme_mod',
+		'capability'			=> 'edit_theme_options',
+		'sanitize_callback'		=> 'sanitize_text_field',
+	) );
+
+	$wp_customize->add_control( 'test_three', array(
+		'priority'				=> 50,
+		'type'					=> 'text',
+		'label'					=> __( 'Test Three', 'flatpress' ),
+		'section'				=> 'theme_options_menu',
+	) );
+
+	$wp_customize->add_setting( 'test_four', array(
+		'default'				=> '',
+		'type'					=> 'theme_mod',
+		'capability'			=> 'edit_theme_options',
+		'sanitize_callback'		=> 'sanitize_text_field',
+	) );
+
+	$wp_customize->add_control( 'test_four', array(
+		'priority'				=> 50,
+		'type'					=> 'text',
+		'label'					=> __( 'Test Four', 'flatpress' ),
+		'section'				=> 'theme_options_menu',
+	) );
+
+	
+
 	if ( isset( $wp_customize->selective_refresh ) ) {
 		$wp_customize->selective_refresh->add_partial( 'blogname', array(
 			'selector'        => '.site-title a',
@@ -194,6 +288,7 @@ function flatpress_customize_partial_blogdescription() {
  * Enqueue the script that controls our customizer controls.
  */
 function flatpress_customizer_controls() {
+	wp_enqueue_script( 'flatpress_tfcustomizer', get_template_directory_uri() . '/js/jquery.tfcustomizer.js', array( 'jquery' ), null, true );
 	wp_enqueue_script( 'flatpress_customizer_controls', get_template_directory_uri() . '/js/customizer-controls.js', array( 'jquery' ), null, true );
 }
 add_action( 'customize_controls_enqueue_scripts', 'flatpress_customizer_controls' );

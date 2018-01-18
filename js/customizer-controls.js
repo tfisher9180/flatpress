@@ -2,32 +2,33 @@
 
 	wp.customize.bind( 'ready', function() {
 
-		function toggleLogoControls() {
-			var textLogoIds = [ 'text_logo_one', 'text_logo_two' ];
-			var logoImgIds = [ 'logo_img' ];
-
-			if ( wp.customize.instance( 'use_text_logo' ).get() == true ) {
-				$.each( textLogoIds, function( i, value ) {
-					$( '#customize-control-' + value ).show();
-				} );
-				$.each( logoImgIds, function( i, value ) {
-					$( '#customize-control-' + value ).hide();
-				} );
-			} else {
-				$.each( textLogoIds, function( i, value ) {
-					$( '#customize-control-' + value ).hide();
-				} );
-				$.each( logoImgIds, function( i, value ) {
-					$( '#customize-control-' + value ).show();
-				} );
+		var tfcustomizerOptions = [
+			{
+				name: 'use_text_logo',
+				toggle: {
+					'true': [ 'text_logo_one', 'text_logo_two' ],
+					'false': [ 'logoImgIds' ]
+				}
+			},
+			{
+				name: 'test',
+				toggle: {
+					'one': [ 'test_one' ],
+					'two': [ 'test_two' ]
+				}
+			},
+			{
+				name: 'test_again',
+				toggle: {
+					'three': [ 'test_three' ],
+					'four': [ 'test_four' ]
+				}
 			}
-		}
+		];
 
-		// call function on page load
-		toggleLogoControls();
+		var controls = $( '#customize-theme-controls input[data-customize="tfcustomizer"]' );
 
-		// call function on change
-		$( '#customize-control-use_text_logo' ).on( 'change', toggleLogoControls );
+		controls.tfcustomizer( this, tfcustomizerOptions );
 
 	} );
 
