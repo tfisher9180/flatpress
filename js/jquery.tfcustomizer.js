@@ -2,63 +2,79 @@
 
 	$.fn.tfcustomizer = function( customizer, options ) {
 
-		function toggle() {
+		this.on( 'change', dispatch );
+		dispatch();
 
-			for ( var ctrl in options ) {
+		function dispatch( e ) {
 
-				if ( options.hasOwnProperty( ctrl ) ) {
+			var initSrc = 'init';
 
-					var control = options[ ctrl ];
+			if ( e && e.type === 'change' ) {
 
-					$.each( control.toggle, function( k, v ) {
+				initSrc = 'event'
+				var _this = $( this );
+			
+			}
 
-						var selector = createSelector( v );
+			$.each( options.controls, function( o, c ) {
 
-						if ( customizer.instance( control.name ).get() == k ) {
+				if ( initSrc === 'event' || typeof _this !== 'undefined' ) {
 
-							$( selector ).show();
+					if ( _this.data( 'name' ) !== c.name ) {
 
-						} else {
+						return;
 
-							$( selector ).hide();
-
-						}
-
-					} );
+					}
 
 				}
-			}
-		};
 
-		function toggleChange() {
-
-			var _this = $( this );
-
-			var matchedOption = $.grep( options, function( v, i ) {
-
-				console.log( v );
-				console.log( i );
+				assemble( c, initSrc );
+				return initSrc == 'init' ? true : false;
 
 			} );
 
-			console.log( matchedOption );
+		}
+
+		function assemble( control, initSrc ) {
+
+			var c = customizer.instance( control.name ).get().toString();
+			var show = control.toggle[ c ];
+
+			if ( show === undefined || Object.keys( control.toggle ).length == 1 ) {
+
+				var toggler = Object.values( control.toggle );
+				var selector = createSelector( toggler );
+
+				if ( initSrc != 'init' ) {
+					$( selector ).toggle();
+				}
+
+			} else {
+
+				var hide = [];
+
+				$.each( control.toggle, function( k, v ) { if ( k === c ) { return; } hide.push( v ); } );
+
+				var showSelector = createSelector( show );
+				var hideSelector = createSelector( hide );
+
+				$( showSelector ).show();
+				$( hideSelector ).hide();
+
+			}
 
 		};
 
 		function createSelector( obj ) {
 
-			return $( obj ).map( function() {
+			obj = ( obj[ 0 ].constructor === Array ) ? obj[ 0 ] : obj;
 
-				return '#customize-control-' + this;
+			var prefix = '#customize-control-';
+			var obj = $( obj ).map( function() { return prefix + this; } ).get().join();
 
-			} )
-			.get()
-			.join();
+			return obj;
 
 		};
-
-		toggle();
-		this.on( 'change', toggleChange );
 
 	};
 

@@ -10,7 +10,8 @@
 		display: none;
 	}
 
-	a {
+	a,
+	.global-slide-menu {
 		display: block;
 		color: $color-white;
 	}
@@ -39,6 +40,8 @@
 		transition: $mobile-menu-transition;
 		width: 100vw;
 		font-size: 0.74em;
+		max-height: calc( 100vh - #{$navbar-height} );
+		@include admin-bar-fix(padding-bottom, $navbar-height);
 
 		> ul {
 
@@ -76,9 +79,61 @@
 				}
 			}
 		}
+
+		.go-back > a {
+			display: inline-block;
+			position: relative;
+
+			&:before {
+				content: '\f104';
+				font-family: 'Fontello';
+				display: inline-block;
+				margin-right: 10px;
+				vertical-align: middle;
+			}
+		}
 	}
 
 	&.submenu_slide {
+
+		&.global {
+
+
+			.global-slide-menu {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				text-align: center;
+				background-color: $color-flat-light;
+				padding: 1.25em 0;
+				z-index: 5;
+
+				> a {
+					display: none;
+					position: absolute;
+					left: $site-padding;
+					font-size: 1.2em;
+				}
+
+				&.go-back > a {
+					display: block;
+				}
+
+				.current-menu {
+					font-size: 1.2em;
+				}
+			}
+
+			.submenu-toggle {
+
+				&:focus,
+				&:active,
+				&:hover {
+					background-color: $color-flat-light;
+				}
+			}
+		}
 
 		.sub-menu {
 			position: absolute;
@@ -127,18 +182,6 @@
 					.submenu-toggle {
 						border-bottom: 1px solid rgba($color-off-white, 0.1);
 					}
-				}
-			}
-
-			.go-back > a {
-				position: relative;
-
-				&:before {
-					content: '\f104';
-					font-family: 'Fontello';
-					display: inline-block;
-					margin-right: 10px;
-					vertical-align: middle;
 				}
 			}
 		}

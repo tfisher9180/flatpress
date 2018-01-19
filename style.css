@@ -1031,7 +1031,8 @@ a:hover, a:focus, a:active {
 	display: none;
 }
 
-.site-navigation a {
+.site-navigation a,
+.site-navigation .global-slide-menu {
 	display: block;
 	color: #fff;
 }
@@ -1060,6 +1061,18 @@ a:hover, a:focus, a:active {
 	transition: transform 0.3s ease-in-out, -webkit-transform 0.3s ease-in-out;
 	width: 100vw;
 	font-size: 0.74em;
+	max-height: calc( 100vh - 66px);
+	padding-bottom: 66px;
+}
+
+.admin-bar #main-navigation-mobile .mobile-menu {
+	padding-bottom: 112px;
+}
+
+@media (min-width: 782px) {
+	.admin-bar #main-navigation-mobile .mobile-menu {
+		padding-bottom: 98px;
+	}
 }
 
 #main-navigation-mobile .mobile-menu > ul li {
@@ -1096,6 +1109,49 @@ a:hover, a:focus, a:active {
 	color: whitesmoke;
 }
 
+#main-navigation-mobile .mobile-menu .go-back > a {
+	display: inline-block;
+	position: relative;
+}
+
+#main-navigation-mobile .mobile-menu .go-back > a:before {
+	content: '\f104';
+	font-family: 'Fontello';
+	display: inline-block;
+	margin-right: 10px;
+	vertical-align: middle;
+}
+
+#main-navigation-mobile.submenu_slide.global .global-slide-menu {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	text-align: center;
+	background-color: #f68320;
+	padding: 1.25em 0;
+	z-index: 5;
+}
+
+#main-navigation-mobile.submenu_slide.global .global-slide-menu > a {
+	display: none;
+	position: absolute;
+	left: 5%;
+	font-size: 1.2em;
+}
+
+#main-navigation-mobile.submenu_slide.global .global-slide-menu.go-back > a {
+	display: block;
+}
+
+#main-navigation-mobile.submenu_slide.global .global-slide-menu .current-menu {
+	font-size: 1.2em;
+}
+
+#main-navigation-mobile.submenu_slide.global .submenu-toggle:focus, #main-navigation-mobile.submenu_slide.global .submenu-toggle:active, #main-navigation-mobile.submenu_slide.global .submenu-toggle:hover {
+	background-color: #f68320;
+}
+
 #main-navigation-mobile.submenu_slide .sub-menu {
 	position: absolute;
 	top: 0;
@@ -1127,18 +1183,6 @@ a:hover, a:focus, a:active {
 #main-navigation-mobile.submenu_slide .mobile-menu > ul .menu-item-has-children .submenu-toggle,
 #main-navigation-mobile.submenu_slide .mobile-menu > ul .page_item_has_children .submenu-toggle {
 	border-bottom: 1px solid rgba(248, 248, 248, 0.1);
-}
-
-#main-navigation-mobile.submenu_slide .mobile-menu .go-back > a {
-	position: relative;
-}
-
-#main-navigation-mobile.submenu_slide .mobile-menu .go-back > a:before {
-	content: '\f104';
-	font-family: 'Fontello';
-	display: inline-block;
-	margin-right: 10px;
-	vertical-align: middle;
 }
 
 #main-navigation-mobile.submenu_dropdown .mobile-menu > ul > li {

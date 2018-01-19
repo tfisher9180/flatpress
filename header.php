@@ -26,10 +26,17 @@
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'flatpress' ); ?></a>
 
-	<nav id="main-navigation-mobile" class="site-navigation<?php esc_attr_e( ' ' . get_theme_mod( 'menu_type', 'off_canvas' ) ); ?><?php esc_attr_e( ' ' . get_theme_mod( 'sub_menu_transition', 'submenu_slide' ) ); ?>" aria-label="Main Navigation">
+	<nav id="main-navigation-mobile" class="site-navigation<?php esc_attr_e( ' ' . get_theme_mod( 'menu_type', 'off_canvas' ) ); ?><?php esc_attr_e( ' ' . get_theme_mod( 'sub_menu_transition', 'submenu_slide' ) ); ?><?php esc_attr_e( ' ' . get_theme_mod( 'sub_menu_header_type', 'in_menu' ) ); ?>" aria-label="Main Navigation">
 		<label id="mobile-menu-label" for="mobile-menu-open" class="screen-reader-text">Toggle the main site navigation</label>
 		<input id="mobile-menu-open" type="checkbox" arialabelledby="mobile-menu-label" />
 		<div class="mobile-menu">
+			<?php if ( get_theme_mod( 'sub_menu_transition', 'submenu_slide' ) == 'submenu_slide' && get_theme_mod( 'sub_menu_header_type', 'in_menu' ) == 'global' ) : ?>
+				<div class="global-slide-menu">
+					<span class="screen-reader-text"><?php esc_html_e( 'Current Menu', 'flatpress' ); ?></span>
+					<a href="#" data-src="global"><span class="screen-reader-text">Go back</span></a>
+					<span class="current-menu"><?php esc_html_e( ucfirst( strtolower( get_bloginfo( 'name' ) ) ), 'flatpress' ); ?></span>
+				</div>
+			<?php endif; ?>
 			<?php wp_nav_menu( array(
 				'theme_location' => 'main-navigation',
 				'container'		 => 'false',

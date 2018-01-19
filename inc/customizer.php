@@ -82,12 +82,12 @@ function flatpress_customize_register( $wp_customize ) {
 		'sanitize_callback'		=> 'flatpress_sanitize_checkbox',
 	) );
 
-	$wp_customize->add_control( 'use_text_logo', array(
+	$wp_customize->add_control( new WP_Customize_tfcustomizer_Control( $wp_customize, 'use_text_logo', array(
 		'priority'				=> 10,
 		'type'					=> 'checkbox',
 		'label'					=> __( 'Use Text Logo', 'flatpress' ),
 		'section'				=> 'theme_options_logo',
-	) );
+	) ) );
 
 	$wp_customize->add_setting( 'menu_type', array(
 		'default'				=> 'off_canvas',
@@ -114,7 +114,7 @@ function flatpress_customize_register( $wp_customize ) {
 		'sanitize_callback'		=> 'flatpress_sanitize_choice',
 	) );
 
-	$wp_customize->add_control( 'sub_menu_transition', array(
+	$wp_customize->add_control( new WP_Customize_tfcustomizer_Control( $wp_customize, 'sub_menu_transition', array(
 		'priority'				=> 20,
 		'type'					=> 'radio',
 		'label'					=> __( 'Sub-menu Transition', 'flatpress' ),
@@ -123,7 +123,7 @@ function flatpress_customize_register( $wp_customize ) {
 			'submenu_slide'		=> 'Slide',
 			'submenu_dropdown'		=> 'Dropdown'
 		),
-	) );
+	) ) );
 
 	$wp_customize->add_setting( 'sub_menu_header_type', array(
 		'default'				=> 'in_menu',
@@ -141,98 +141,6 @@ function flatpress_customize_register( $wp_customize ) {
 			'in_menu'		=> 'In-menu',
 			'global'		=> 'Global'
 		),
-	) );
-
-	$wp_customize->add_setting( 'test', array(
-		'default'				=> 'one',
-		'type'					=> 'theme_mod',
-		'capability'			=> 'edit_theme_options',
-		'sanitize_callback'		=> 'flatpress_sanitize_choice',
-	) );
-
-	$wp_customize->add_control( new WP_Customize_tfcustomizer_Control( $wp_customize, 'test', array(
-		'priority'				=> 40,
-		'type'					=> 'radio',
-		'label'					=> __( 'This is a test', 'flatpress' ),
-		'section'				=> 'theme_options_menu',
-		'choices'				=> array(
-			'one'		=> 'One',
-			'two'		=> 'Two'
-		),
-	) ) );
-
-	$wp_customize->add_setting( 'test_one', array(
-		'default'				=> '',
-		'type'					=> 'theme_mod',
-		'capability'			=> 'edit_theme_options',
-		'sanitize_callback'		=> 'sanitize_text_field',
-	) );
-
-	$wp_customize->add_control( 'test_one', array(
-		'priority'				=> 50,
-		'type'					=> 'text',
-		'label'					=> __( 'Test One', 'flatpress' ),
-		'section'				=> 'theme_options_menu',
-	) );
-
-	$wp_customize->add_setting( 'test_two', array(
-		'default'				=> '',
-		'type'					=> 'theme_mod',
-		'capability'			=> 'edit_theme_options',
-		'sanitize_callback'		=> 'sanitize_text_field',
-	) );
-
-	$wp_customize->add_control( 'test_two', array(
-		'priority'				=> 50,
-		'type'					=> 'text',
-		'label'					=> __( 'Test Two', 'flatpress' ),
-		'section'				=> 'theme_options_menu',
-	) );
-
-	$wp_customize->add_setting( 'test_again', array(
-		'default'				=> 'three',
-		'type'					=> 'theme_mod',
-		'capability'			=> 'edit_theme_options',
-		'sanitize_callback'		=> 'flatpress_sanitize_choice',
-	) );
-
-	$wp_customize->add_control( new WP_Customize_tfcustomizer_Control( $wp_customize, 'test_again', array(
-		'priority'				=> 40,
-		'type'					=> 'radio',
-		'label'					=> __( 'This is a test', 'flatpress' ),
-		'section'				=> 'theme_options_menu',
-		'choices'				=> array(
-			'three'		=> 'Three',
-			'four'		=> 'Four'
-		),
-	) ) );
-
-	$wp_customize->add_setting( 'test_three', array(
-		'default'				=> '',
-		'type'					=> 'theme_mod',
-		'capability'			=> 'edit_theme_options',
-		'sanitize_callback'		=> 'sanitize_text_field',
-	) );
-
-	$wp_customize->add_control( 'test_three', array(
-		'priority'				=> 50,
-		'type'					=> 'text',
-		'label'					=> __( 'Test Three', 'flatpress' ),
-		'section'				=> 'theme_options_menu',
-	) );
-
-	$wp_customize->add_setting( 'test_four', array(
-		'default'				=> '',
-		'type'					=> 'theme_mod',
-		'capability'			=> 'edit_theme_options',
-		'sanitize_callback'		=> 'sanitize_text_field',
-	) );
-
-	$wp_customize->add_control( 'test_four', array(
-		'priority'				=> 50,
-		'type'					=> 'text',
-		'label'					=> __( 'Test Four', 'flatpress' ),
-		'section'				=> 'theme_options_menu',
 	) );
 
 	
